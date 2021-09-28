@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <title>test socket</title>
+</head>
+
+<body>
+    <h2>tests sockets</h2>
+    <form id="form" action="" method="POST">
+        <label for="test">test</label>
+        <input id="input" name="test" type="text">
+        <input type="submit" id="test" value="go">
+    </form>
+    <ul id="messages"></ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+        let form = document.getElementById('form');
+        let input = document.getElementById('input');
+
+        // on event, emit the message
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        });
+    </script>
+</body>
+
+</html>
