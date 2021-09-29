@@ -1,6 +1,6 @@
 import data from './data.js'
 // generate a random qrcode
-const button = document.getElementById('random-btn');
+/*const button = document.getElementById('random-btn');
 
 button.addEventListener('click', () => {
     const qrcode = document.getElementById('qrcode');
@@ -40,20 +40,29 @@ button.addEventListener('click', () => {
 
     makeCode();
 });
+*/
 
-
-let submit = document.getElementById('submit1')
-let mail, password;
+let submit = document.getElementById('submit2')
+let mail, password, surname, name;
 submit.addEventListener('click', (e) => {
     e.preventDefault()
     console.log('e', e)
-    mail = document.getElementById('mail1').value
-    password = document.getElementById('password1').value
+    mail = document.getElementById('mail2').value
+    password = document.getElementById('password2').value
+    name = document.getElementById('name').value
+    surname = document.getElementById('surname').value
     console.log('mail', mail, password)
     data.mail = mail
     data.password = password
+    data.name = name
+    data.surname = surname
 
-    fetch.post('/register', data)
+    console.log('data', data)
+    const init = {
+        method: 'post',
+        body: data
+    }
+    fetch('http://127.0.0.1:3000/register', init)
         .then(response => {
             console.log(response.json());
         })
