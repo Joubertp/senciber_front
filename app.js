@@ -52,7 +52,12 @@ submit.addEventListener('click', (e) => {
     console.log('mail', mail, password)
     data.mail = mail
     data.password = password
+
+    fetch.post('/register', data)
+        .then(response => {
+            console.log(response.json());
+        })
+        .catch(error => {
+            console.log(error);
+        });
 });
-
-
-console.log('data', data)
