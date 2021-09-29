@@ -42,31 +42,82 @@ button.addEventListener('click', () => {
 });
 */
 
+// inscription
 let submit = document.getElementById('submit2')
 let mail, password, surname, name;
-submit.addEventListener('click', (e) => {
-    e.preventDefault()
-    console.log('e', e)
-    mail = document.getElementById('mail2').value
-    password = document.getElementById('password2').value
-    name = document.getElementById('name').value
-    surname = document.getElementById('surname').value
-    console.log('mail', mail, password)
-    data.mail = mail
-    data.password = password
-    data.name = name
-    data.surname = surname
+if (submit) {
+    submit.addEventListener('click', (e) => {
+        e.preventDefault()
+        let user = {}
+        mail = document.getElementById('mail2').value
+        password = document.getElementById('password2').value
+        name = document.getElementById('name').value
+        surname = document.getElementById('surname').value
+        console.log('mail', mail, password)
+        user.email = mail
+        user.password = password
+        user.name = name
+        user.surname = surname
 
-    console.log('data', data)
-    const init = {
-        method: 'post',
-        body: data
-    }
-    fetch('http://127.0.0.1:3000/register', init)
-        .then(response => {
-            console.log(response.json());
-        })
-        .catch(error => {
-            console.log(error);
-        });
-});
+        const init = {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user: user })
+        }
+
+        console.log('data', init.body)
+            /*fetch('http://127.0.0.1:3000/user/list')
+        .then(res => console.log(res.json()))
+        .catch(error => console.log(error))
+*/
+        fetch(data.backUrl + '/user/create', init)
+            .then(response => response.json())
+            .then(res => data.user = res)
+            .catch(error => console.log(error));
+    });
+}
+// connexion
+let submit1 = document.getElementById('submit1')
+let mail1, password1;
+if (submit1) {
+    submit1.addEventListener('click', (e) => {
+        e.preventDefault()
+        let user = {}
+        mail1 = document.getElementById('mail1').value
+        password1 = document.getElementById('password1').value
+        console.log('mail', mail1, password1)
+        user.email = mail1
+        user.password = password1
+
+        const init = {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user: user })
+        }
+
+        console.log('data', init.body)
+            /*fetch(data.backUrl + '/user/list')
+        .then(res => console.log(res.json()))
+        .catch(error => console.log(error))
+*/
+        fetch(data.backUrl + '/user/login', init)
+            .then(response => response.json())
+            .then(res => {
+                data.user = res
+                const user = data.user
+                console.log('user', user)
+                window.location.href = data.baseUrl + "/connected.html"
+                displayUser(user)
+            })
+            .catch(error => console.log(error));
+    });
+}
+
+const displayUser = user => {
+    let connected = document.getElementById('connected')
+    connected.textContent = 'tu es connecté' + user.name
+}

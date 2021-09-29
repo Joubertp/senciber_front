@@ -1,7 +1,6 @@
 {
   "name": "qr-code-front",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +15,6 @@
     "url": "https://github.com/dorinebertonTlse/poc-qrcode/issues"
   },
   "homepage": "https://github.com/dorinebertonTlse/poc-qrcode#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "description": ""
 }
