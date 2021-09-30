@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,40 +8,27 @@
     <link rel="stylesheet" href="styles.css">
     <title>QR code</title>
 </head>
+
 <body>
     <div id="container">
         <div class="wrapper">
-            <div class="auth" id="register">
-                <h2>S'inscrire</h2>
-                <form class="form-group-inscription" action="">
+            <div class="connexion" id="login">
+                <h2>Se connecter</h2>
+                <form class="form-group" action="">
                     <div class="form-group-item">
                         <label for="mail1">Adresse mail</label>
-                        <input id="mail1" name="mail1" type="text">
+                        <input id="mail1" name="mail1" type="email" />
                     </div>
                     <div class="form-group-item">
                         <label for="password1">Mot de passe</label>
-                        <input id="password1" name="password1" type="password">
-                    </div>
-                    <div class="form-group-item-inscription">
-                        <input type="submit" class="submit" value="Go">
-                    </div>
-                </form>
-            </div>
-            <div class="auth" id="login">
-                <h2>Se connecter</h2>
-                <form class="form-group" action="" >
-                    <div class="form-group-item">
-                        <label for="mail2">Adresse mail</label>
-                        <input id="mail2" name="mail2" type="text">
+                        <input id="password1" type="password" name="password1" type="password" />
                     </div>
                     <div class="form-group-item">
-                        <label for="password2">Mot de passe</label>
-                        <input id="password2" name="password2" type="password">
+                        <input type="submit" id="submit1" name="submit1" value="Go" />
                     </div>
                     <div class="form-group-item">
-                        <input type="submit" class="submit" value="Go">
+                        <a href="./register.html">Je m'inscris</a>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -50,6 +38,8 @@
         </div>
     </div>
     <script src="qrcode.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="app.js" type="module"></script>
 </body>
+
 </html>
