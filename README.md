@@ -1,2 +1,0 @@
-# senciber_front
-.
