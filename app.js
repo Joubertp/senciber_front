@@ -94,7 +94,10 @@ if (submit) {
 */
         fetch(data.backUrl + '/user/create', init)
             .then(response => response.json())
-            .then(res => data.user = res)
+            .then(res => {
+                data.user = res
+                window.location.href = data.baseUrl + "/"
+            })
             .catch(error => console.log(error));
     });
 }
@@ -130,7 +133,7 @@ if (submit1) {
                 data.user = res
                 const user = data.user
                 console.log('user', user)
-                    //window.location.href = data.baseUrl + "/connected.html"
+                window.location.href = data.baseUrl + "/connected.html"
             })
             .catch(error => console.log(error));
     });
