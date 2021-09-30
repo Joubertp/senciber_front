@@ -1,46 +1,66 @@
 import data from './data.js'
 // generate a random qrcode
-/*const button = document.getElementById('random-btn');
+const button = document.getElementById('random-btn');
+if (button) {
+    button.addEventListener('click', () => {
+        const qrcode = document.getElementById('qrcode');
+        qrcode.innerHTML = '';
 
-button.addEventListener('click', () => {
-    const qrcode = document.getElementById('qrcode');
-    qrcode.innerHTML = '';
-
-    let QR_CODE = new QRCode("qrcode", {
-        width: 220,
-        height: 220,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H,
-    });
+        let QR_CODE = new QRCode("qrcode", {
+            width: 220,
+            height: 220,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H,
+        });
 
 
-    const makeCode = () => {
+        const makeCode = () => {
 
-        const randomNumber = len => {
-            let random;
-            let n = '';
 
-            for (let count = 0; count < len; count++) {
-                random = Math.floor(Math.random() * 10);
-                n += random.toString();
+            /*const randomNumber = len => {
+                let random;
+                let n = '';
+    
+                for (let count = 0; count < len; count++) {
+                    random = Math.floor(Math.random() * 10);
+                    n += random.toString();
+                }
+                // console.log('n', n)
+                return n;
             }
-            // console.log('n', n)
-            return n;
+    
+            let token = randomNumber(13);
+            data.token = token
+            console.log('data', data)
+    
+            // construct the url
+            const url = `https://google.com?token=${token}`
+            QR_CODE.makeCode(url);*/
+            let listUser = []
+            const listConnectedUsers = () => {
+                fetch(data.backUrl + '/user/list/')
+                    .then(resp => resp.json())
+                    .then(resp => {
+                        const el = resp.filter(el => {
+                            return el
+                        })
+                        console.log('el', el)
+                        QR_CODE.makeCode(JSON.stringify(el));
+                    })
+            }
+
+            //let token = listConnectedUsers;
+            listConnectedUsers()
+
+
         }
 
-        let token = randomNumber(13);
-        data.token = token
-        console.log('data', data)
+        makeCode();
+    });
+}
 
-        // construct the url
-        const url = `https://google.com?token=${token}`
-        QR_CODE.makeCode(url);
-    }
 
-    makeCode();
-});
-*/
 
 // inscription
 let submit = document.getElementById('submit2')
@@ -110,8 +130,27 @@ if (submit1) {
                 data.user = res
                 const user = data.user
                 console.log('user', user)
-                window.location.href = data.baseUrl + "/connected.html"
+                    //window.location.href = data.baseUrl + "/connected.html"
             })
             .catch(error => console.log(error));
     });
+}
+
+const deconnect = document.getElementById('deconnect')
+if (deconnect) {
+    deconnect.addEventListener('click', () => {
+        const init = {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+        fetch(data.backUrl + '/user/logout/:' + data.user._id, init)
+            .then(response => response.json())
+            .then(res => {
+                data.user = {}
+            })
+            .catch(error => console.log(error));
+
+    })
 }
