@@ -1,5 +1,7 @@
-import data from './data.js'
-// generate a random qrcode
+import data from '../js/data.js'
+
+/* === QR CODE === */
+// create an event
 const button = document.getElementById('random-btn');
 if (button) {
     button.addEventListener('click', () => {
@@ -15,28 +17,8 @@ if (button) {
         });
 
 
+        // generate a qrcode
         const makeCode = () => {
-
-
-            /*const randomNumber = len => {
-                let random;
-                let n = '';
-    
-                for (let count = 0; count < len; count++) {
-                    random = Math.floor(Math.random() * 10);
-                    n += random.toString();
-                }
-                // console.log('n', n)
-                return n;
-            }
-    
-            let token = randomNumber(13);
-            data.token = token
-            console.log('data', data)
-    
-            // construct the url
-            const url = `https://google.com?token=${token}`
-            QR_CODE.makeCode(url);*/
             let listUser = []
             const listConnectedUsers = () => {
                 fetch(data.backUrl + '/user/list/')
@@ -50,7 +32,6 @@ if (button) {
                     })
             }
 
-            //let token = listConnectedUsers;
             listConnectedUsers()
 
 
@@ -61,8 +42,8 @@ if (button) {
 }
 
 
-
-// inscription
+/* === AUTH === */
+// register
 let submit = document.getElementById('submit2')
 let mail, password, surname, name;
 if (submit) {
@@ -91,7 +72,7 @@ if (submit) {
             /*fetch('http://127.0.0.1:3000/user/list')
         .then(res => console.log(res.json()))
         .catch(error => console.log(error))
-*/
+        */
         fetch(data.backUrl + '/user/create', init)
             .then(response => response.json())
             .then(res => {
@@ -101,7 +82,8 @@ if (submit) {
             .catch(error => console.log(error));
     });
 }
-// connexion
+
+// connection
 let submit1 = document.getElementById('submit1')
 let mail1, password1;
 if (submit1) {
@@ -123,22 +105,20 @@ if (submit1) {
         }
 
         console.log('data', init.body)
-            /*fetch(data.backUrl + '/user/list')
-        .then(res => console.log(res.json()))
-        .catch(error => console.log(error))
-*/
+
         fetch(data.backUrl + '/user/login', init)
             .then(response => response.json())
             .then(res => {
                 data.user = res
                 const user = data.user
                 console.log('user', user)
-                window.location.href = data.baseUrl + "/connected.html"
+                window.location.href = data.baseUrl + "/html/connected.html"
             })
             .catch(error => console.log(error));
     });
 }
 
+// logout
 const deconnect = document.getElementById('deconnect')
 if (deconnect) {
     deconnect.addEventListener('click', () => {
